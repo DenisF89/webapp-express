@@ -1,9 +1,11 @@
 const express = require("express");
-const router = express.Router();        //creo il router
 const moviesController = require("../controllers/moviesController");
+const checkId = require("../middleware/checkId");
+
+const router = express.Router();        //creo il router
 
 router.get("/", moviesController.index);
 
-router.get("/:id", moviesController.show);
+router.get("/:id", checkId, moviesController.show);
 
 module.exports = router;
