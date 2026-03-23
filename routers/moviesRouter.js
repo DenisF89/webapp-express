@@ -8,4 +8,6 @@ router.get("/", moviesController.index);
 
 router.get("/:id", checkId, moviesController.show);
 
+router.delete("/:id", checkId, moviesController.destroy);
+
 module.exports = router;
