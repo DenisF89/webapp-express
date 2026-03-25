@@ -1,11 +1,14 @@
 //Importo file
 const express = require("express");
+const cors = require("cors");
 const moviesRouter = require("./routers/moviesRouter");
 const errorHandler = require("./middleware/error");
 const notFound = require("./middleware/notFound");
 
 const app = express();
 const port = process.env.APP_PORT;
+
+app.use(cors({ origin: process.env.FE_URL }));
 
 app.use(express.static("public"));  //middleware per gestire file statici in public
 app.use(express.json());            //middleware per gestire le richieste in formato json
