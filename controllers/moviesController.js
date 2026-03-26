@@ -55,4 +55,20 @@ function destroy(req,res){
         });
 }
 
-module.exports = {index,show,destroy};
+function store(req,res){
+    const id= Number(req.params.id);
+    const { name, vote, text } = req.body;
+    const sqlQuery = `INSERT INTO reviews 
+                        (movie_id,name,vote,text)
+                        VALUES (?,?,?,?)`;
+    db.query(sqlQuery,[id,name,vote,text])
+        .then(([newReview])=>{
+            return res.status(201).json({message: "Recensione creata", id: newReview.insertId});
+        })
+        .catch(error=>{
+            return res.status(500).json({error:"Internal System Error", message:"Errore nel salvataggio del nuovo commento"});
+        })              
+}
+
+
+module.exports = {index,show,destroy,store};
