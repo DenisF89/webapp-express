@@ -10,4 +10,6 @@ router.get("/:id", checkId, moviesController.show);
 
 router.delete("/:id", checkId, moviesController.destroy);
 
+router.post("/:id", moviesController.store );
+
 module.exports = router;
