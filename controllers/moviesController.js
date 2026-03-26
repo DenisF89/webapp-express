@@ -15,7 +15,11 @@ function index(req,res){
 
 function show(req,res){
     const id = Number(req.params.id);
-    const sqlMovies = `SELECT * FROM movies WHERE id = ?`;
+    const sqlMovies =  `SELECT movies.*, ROUND(AVG(reviews.vote),2) AS average_vote
+                        FROM movies
+                        LEFT JOIN reviews ON reviews.movie_id = movies.id
+                        WHERE movies.id = ?
+                        GROUP BY movies.id`;
     const sqlReviews = `SELECT * FROM reviews WHERE movie_id = ?`;
     db.query(sqlMovies,[id])
             .then(([movies])=>{
