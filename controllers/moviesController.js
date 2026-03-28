@@ -1,8 +1,24 @@
 const db = require("../data/db");
 
 function index(req,res){
-    const sqlQuery = `SELECT * FROM movies`;
-    db.query(sqlQuery)
+
+    const {search} = req.query;
+
+    const columns = ['title','director','genre','release_year'];
+           
+
+    let sqlQuery = `SELECT * FROM movies`;
+    let values = [];
+    
+    if (search && search.trim() !== ""){
+        const likeSearch = `%${search}%`
+        const conditions =  columns.map(col => `movies.${col} LIKE ?`) 
+                               .join(' OR ');   
+        sqlQuery += ` WHERE ${conditions}`;
+        values = columns.map(()=>likeSearch)
+    }
+
+    db.query(sqlQuery, values)
             .then(([movies])=>{ //destructuring: results[values,fields] => [movies]=results[0]
                 return res.status(200).json(movies);
             })
@@ -11,6 +27,9 @@ function index(req,res){
                                         message:"Errore nella query"
                                     })
             })
+
+
+
 }
 
 function show(req,res){
