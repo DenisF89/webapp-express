@@ -63,14 +63,14 @@ function show(req,res){
 
 function destroy(req,res){
     const id = Number(req.params.id);
-    const sqlQuery =`DELETE from movies WHERE movies.id = ?`;
+    const sqlQuery =`DELETE from reviews WHERE review.id = ?`;
     db.query(sqlQuery,[id])
         .then(([result])=>{ 
             if (result.affectedRows === 0)
-                {return res.status(404).json({error:"Not found",message:"Film da eliminare non trovato"});}
+                {return res.status(404).json({error:"Not found",message:"Recensione non trovata"});}
             return res.sendStatus(204);
         }).catch(error=>{
-            return res.status(500).json({error: "Database internal Error", message:"Nessun film eliminato"}); 
+            return res.status(500).json({error: "Database internal Error", message:"Errore nella cancellazione"}); 
         });
 }
 
