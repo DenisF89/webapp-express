@@ -1,5 +1,6 @@
 const db = require("../data/db");
 
+//FUNZIONI DI READ DEI FILM
 function index(req,res){
 
     const {search} = req.query;
@@ -61,9 +62,10 @@ function show(req,res){
 
 }
 
+//FUNZIONI DI CREATE E DELETE DELLE REVIEW
 function destroy(req,res){
-    const id = Number(req.params.id);
-    const sqlQuery =`DELETE from reviews WHERE review.id = ?`;
+    const id = Number(req.params.idR);
+    const sqlQuery =`DELETE from reviews WHERE reviews.id = ?`;
     db.query(sqlQuery,[id])
         .then(([result])=>{ 
             if (result.affectedRows === 0)
