@@ -39,7 +39,8 @@ router.post("/login", (req, res, next) => {
       res.json({  message: "Login riuscito",
                   user: {
                       id: user.id,
-                      username: user.username
+                      username: user.username,
+                      role: user.role
                     }
       });
     });
