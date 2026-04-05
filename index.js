@@ -1,7 +1,6 @@
 //Importo file
 const express = require("express");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
 const moviesRouter = require("./routers/moviesRouter");
 const userRouter = require("./routers/user");
 const errorHandler = require("./middleware/error");
